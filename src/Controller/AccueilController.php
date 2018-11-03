@@ -30,4 +30,11 @@ class AccueilController extends Controller
     {
         return $this->render('accueil/forms.html.twig');
     }
+    /**
+     * @Route("/contact", name="conatct")
+     */
+    public function contact()
+    {
+        return $this->render('accueil/index.html.twig');
+    }
 }
