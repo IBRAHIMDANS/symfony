@@ -4,6 +4,12 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\User;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request ;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class AccueilController extends Controller
 {
@@ -28,13 +34,32 @@ class AccueilController extends Controller
      */
     public function forms()
     {
-        return $this->render('accueil/forms.html.twig');
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $user = $repo->findAll();
+
+
+        return $this->render('accueil/forms.html.twig',['user' => $user]);
     }
     /**
-     * @Route("/contact", name="conatct")
+     * @Route("/contact", name="contact")
      */
-    public function contact()
+    public function contact(Request $request, ObjectManager $manager)
     {
-        return $this->render('accueil/index.html.twig');
+      $newuser = new User ();
+      $forms = $this->createFormBuilder($newuser)
+                    ->add('firstname')
+                    ->add('age')
+                    ->add('forget')
+                    ->getForm();
+
+      $forms->handleRequest($request);
+      if ($forms-> isSubmitted() && $forms-> isValid()){
+        $newuser->setCreateAt(new \DateTime());
+        $manager -> persist($newuser);
+        $manager->flush();
+        return $this->redirectToRoute('forms');
+      }
+
+        return $this->render('accueil/index.html.twig',["forms"=>$forms->createView()]);
     }
 }

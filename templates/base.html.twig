@@ -9,9 +9,9 @@
 </head>
 <body>
     <nav class="nav justify-content-center">
-            <a class="nav-link active" href="/accueil">Accueil</a>
-            <a class="nav-link" href="/forms">Forms</a>
-            <a class="nav-link" href="/contact">Contact</a>
+            <a class="nav-link active" href="{{path('home')}}">Accueil</a>
+            <a class="nav-link" href="{{path('contact')}}">ADD & DELETE</a>
+            <a class="nav-link" href="{{path('forms')}}">Forms</a>
           </nav>
   <div class="container">
   {% block body %}{% endblock %}

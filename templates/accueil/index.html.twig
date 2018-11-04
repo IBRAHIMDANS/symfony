@@ -1,7 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil {% endblock %}
+{% block title %}Ajout et suppression {% endblock %}
 
 {% block body %}
-
+<div class="add">
+  <h1>Pour ajouter ou supprimer un user</h1>
+  {{ form_start(forms) }}
+  <div class="foms">
+    {{form_row(forms.firstname, {'attr' :{'placeholder' : "Prenom",'class' :'form-control'}})}}
+  </div>
+  <div class="foms">
+    {{form_row(forms.age, {'attr' :{'placeholder' : "Age",'class' :'form-control'}})}}
+  </div>
+  <div class="foms">
+    <label for="">Adresse </label>
+    {{form_widget(forms.forget, {'attr' :{'placeholder' : "Address",'class' :'form-control'}})}}
+  </div>
+  <br>
+  <button type="submit" class="btn btn-success" >Ajouter l'utilisateur</button>
+  {{form_end(forms)}}
+</div>
 {% endblock %}
