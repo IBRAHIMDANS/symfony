@@ -24,6 +24,7 @@ class AccueilController extends Controller
     }
     /**
      * @Route("/", name="home")
+     * @Route("/accueil", name="accueil")
      */
     public function home()
     {
@@ -43,9 +44,10 @@ class AccueilController extends Controller
     /**
      * @Route("/contact", name="contact")
      */
-    public function contact(Request $request, ObjectManager $manager)
+    public function contact( Request $request, ObjectManager $manager)
     {
       $newuser = new User ();
+
       $forms = $this->createFormBuilder($newuser)
                     ->add('firstname')
                     ->add('age')
